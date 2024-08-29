@@ -12,8 +12,8 @@ function App() {
     <>
       <Heading />
       <Routes>
-        <Route path='/' element={<List ContentList={ContentList} />} />
-        <Route path='/upload' element={<Upload ContentList={ContentList} setContentList={setContentList} />} />
+        <Route path='/' element={<List />} />
+        <Route path='/upload' element={<Upload />} />
       </Routes>
     </>
   );

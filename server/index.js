@@ -5,8 +5,6 @@ const mongoose = require('mongoose');
 const app = express();
 const port = 3000;
 
-// mongodb+srv://admin:ekfdls1!8@reactcommunity.02w4ilq.mongodb.net/Community?retryWrites=true&w=majority&appName=reactcommunity
-
 // express에서 static으로 활용할 폴더 지정
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
@@ -20,7 +18,7 @@ app.listen(port, () => {
   // mongoose에 mongodb atlas의 나의 몽고db와 연결
   mongoose.connect('mongodb+srv://admin:ekfdls1!8@reactcommunity.02w4ilq.mongodb.net/Recipe?retryWrites=true&w=majority&appName=reactcommunity')
   .then(() => {
-    console.log(`Example app listening on port http://localhost:${port}`);
+    console.log(`Server running ... >>> http://localhost:${port}`);
     console.log('Connecting MongoDB...');
   })
   .catch((err) => {
@@ -44,6 +42,16 @@ app.post('/api/post/submit', (req, res) => {
   RecipePost.save()
   .then(() => {
     res.status(200).json({success: true});
+  })
+  .catch((err) => {
+    res.status(400).json({success: false});
+  });
+});
+
+app.post('/api/post/list', (req, res) => {
+  Post.find().exec()
+  .then((doc) => {
+    res.status(200).json({success: true, postList: doc});
   })
   .catch((err) => {
     res.status(400).json({success: false});

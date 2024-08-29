@@ -10,9 +10,7 @@ function Heading() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link>
-              <Link to='/upload' style={{ color: 'white', textDecoration: 'none' }}>업로드</Link>
-            </Nav.Link>
+            <Link to='/upload' style={{ color: 'white', textDecoration: 'none' }}>업로드</Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
