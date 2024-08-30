@@ -26,7 +26,8 @@
 10. 프로필 사진 변경
 
 ## DB 모델
-1. 레시피 글 모델 : title(글 제목), content(글 내용)
+1. 레시피 글 모델[/Model/Post.js] : title(글 제목), content(글 내용), postNum(글 고유번호)
+2. 레시피 글 각각에 부여될 번호 모델[/Model/Counter.js] : name(document를 추적하기 위함), postNum(각각의 글에 부여될 숫자)
 
 ## 외부 라이브러리
 1. 네이버 클라우드 사진 업로드
