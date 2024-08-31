@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ListGroup from 'react-bootstrap/ListGroup';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 function List() {
@@ -23,6 +24,7 @@ function List() {
       
       <>
         {
+          // PostList에는 {_id: '', title: '', content: '', postNum: 1, __v: 0} 들어가 있음
           PostList.map((post, idx) => {
             return (
               <ListGroup style={{
@@ -35,8 +37,10 @@ function List() {
                   boxShadow: '0px 19px 38px rgba(0, 0, 0, 0.03), 0px 15px 12px rgba(0, 0, 0, 0.1)',
                 }} key={idx}>
                   <ListGroup.Item style={{ border: 'none', }}>
-                    <p style={{ fontWeight: 'bold' }}>{post.title}</p>
-                    <p>{post.content}</p>
+                    <Link to={`/post/${post.postNum}`} style={{color: 'black', textDecoration: 'none'}}>
+                      <p style={{ fontWeight: 'bold' }}>{post.title}</p>
+                      <p>{post.content}</p>
+                    </Link>
                   </ListGroup.Item>
               </ListGroup>
             );
