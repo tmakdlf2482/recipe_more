@@ -67,6 +67,13 @@ function Detail() {
             <>
               <div style={{ height: 'auto', background: '#ffffff', padding: '30px 20px', boxShadow: '0px 19px 38px rgba(0, 0, 0, 0.03), 0px 15px 12px rgba(0, 0, 0, 0.1)' }}>
                 <h1 style={{ fontWeight: 'bold' }}>{PostInfo.title}</h1>
+                {/* 사용자가 이미지를 업로드 할수도 있고 안할수도 있으니, 이미지가 있는지 체크 */}
+                {
+                  PostInfo.image ?
+                  (<img src={`http://localhost:3000/${PostInfo.image}`} alt="" style={{ width: '100%', height: 'auto' }} />)
+                  :
+                  (null)
+                }
                 <p style={{ marginBottom: '0px' }}>{PostInfo.content}</p>
               </div>
               <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end', margin: '20px 0'}}>

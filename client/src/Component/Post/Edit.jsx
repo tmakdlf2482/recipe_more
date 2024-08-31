@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
 import toast, { toastConfig } from 'react-simple-toasts';
 import 'react-simple-toasts/dist/theme/dark.css';
+import ImageUpload from './ImageUpload';
 import axios from 'axios';
 
 toastConfig (
@@ -14,6 +15,7 @@ function Edit() {
   const [Title, setTitle] = useState('');
   const [Content, setContent] = useState('');
   const [PostInfo, setPostInfo] = useState({});
+  const [Image, setImage] = useState(PostInfo.image);
   const [Flag, setFlag] = useState(false);
 
   let navigate = useNavigate();
@@ -39,6 +41,7 @@ function Edit() {
   useEffect(() => { // 기존에 있던 제목, 내용 불러오는 부분
     setTitle(PostInfo.title);
     setContent(PostInfo.content);
+    setImage(PostInfo.image);
   }, [PostInfo]);
   
   const onSubmit = (e) => {
@@ -51,6 +54,7 @@ function Edit() {
     let body = {
       title: Title,
       content: Content,
+      image: Image,
       postNum: params.postNum, // 서버 측에서도 어떤 글을 수정할지 알아야 하기 때문에 필요
     };
 
@@ -74,11 +78,14 @@ function Edit() {
       <Form>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label style={{ fontWeight: 'bold' }}>제목</Form.Label>
-          <Form.Control type='text' defaultValue={PostInfo.title} onChange={(e) => {setTitle(e.target.value);}} />
+          <Form.Control type='text' className='shadow-none' defaultValue={PostInfo.title} onChange={(e) => {setTitle(e.target.value);}} />
         </Form.Group>
+
+        <ImageUpload setImage={setImage} />
+
         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
           <Form.Label style={{ fontWeight: 'bold' }}>내용</Form.Label>
-          <Form.Control as="textarea" rows={20} style={{ resize: 'none' }} value={Content} onChange={(e) => {setContent(e.target.value);}} />
+          <Form.Control as="textarea" rows={20} style={{ resize: 'none' }} className='shadow-none' value={Content} onChange={(e) => {setContent(e.target.value);}} />
         </Form.Group>
         <Button variant="dark" style={{ float: 'right' }} onClick={(e) => {onSubmit(e)}}>수정</Button>
         <Button variant="danger" style={{ float: 'right', marginRight: '10px' }} onClick={(e) => {e.preventDefault(); navigate(-1);}}>취소</Button>

@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const multer  = require('multer')
 
 const { Post } = require('../Model/Post.js');
 const { Counter } = require('../Model/Counter.js');
@@ -70,6 +71,32 @@ router.post('/delete', (req, res) => {
     .catch(() => {
       res.status(400).json({ success: false });
     });
+});
+
+// 이미지 업로드 부분
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'image/') // 어떤 경로로 저장할지 지정 (image 폴더 안에 저장)
+  },
+  filename: function (req, file, cb) {
+    // 어떤 이름으로 저장할지 지정
+    cb(null, Date.now() + '-' + file.originalname) // Date.now()는 현재 시간을 ms초로 환산한 값
+  },
+});
+
+const upload = multer({ storage: storage }).single('file'); // 파일을 1개만 저장
+
+router.post('/image/upload', (req, res) => {
+  // console.log(req.body, req.formData);
+  upload(req, res, (err) => {
+    if (err) {
+      res.status(400).json({ success: false });
+    }
+    else {
+      // console.log(res.req.file);
+      res.status(200).json({ success: true, filePath: res.req.file.path }); // 저장한 이미지의 경로를 다시 클라이언트에 전송
+    }
+  });
 });
 
 module.exports = router;

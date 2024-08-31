@@ -11,7 +11,8 @@
 8. 서로 다른 포트 해결(cors)[클라이언트] : `npm i -S http-proxy-middleware` <br />
 9. css 프레임워크[클라이언트] : `npm i react-bootstrap bootstrap` <br />
 10. React Toast Popup 모듈 설치[클라이언트] : `npm i react-simple-toasts` <br />
-11. React 중앙집중식 상태관리 라이브러리 Redux 설치 : `npm install redux` <br />
+11. 이미지 업로드를 위한 라이브러리 설치[서버] : `npm i -S multer` <br />
+12. React 중앙집중식 상태관리 라이브러리 Redux 설치 : `npm install redux` <br />
 
 ## 기능
 1. 레시피 글 쓰기
@@ -38,3 +39,4 @@
 3. mongoose : `https://mongoosejs.com/` <br /> 
 4. axios : `https://axios-http.com/kr/docs/intro` <br />
 5. react bootstrap : `https://react-bootstrap.netlify.app/` <br />
+6. multer : `https://github.com/expressjs/multer` <br />

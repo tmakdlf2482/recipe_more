@@ -4,6 +4,7 @@ import toast, { toastConfig } from 'react-simple-toasts';
 import 'react-simple-toasts/dist/theme/dark.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import ImageUpload from './ImageUpload.jsx';
 
 toastConfig (
   { theme: 'dark' }
@@ -12,6 +13,7 @@ toastConfig (
 function Upload() {
   const [Title, setTitle] = useState('');
   const [Content, setContent] = useState('');
+  const [Image, setImage] = useState(''); // Image에는 파일 경로가 들어옴
 
   let navigate = useNavigate();
   
@@ -25,6 +27,7 @@ function Upload() {
     let body = {
       title: Title,
       content: Content,
+      image: Image,
     };
 
     axios.post('/api/post/submit', body)
@@ -47,11 +50,14 @@ function Upload() {
       <Form>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label style={{ fontWeight: 'bold' }}>제목</Form.Label>
-          <Form.Control type='text' value={Title} onChange={(e) => {setTitle(e.target.value);}} />
+          <Form.Control type='text' className='shadow-none' value={Title} onChange={(e) => {setTitle(e.target.value);}} />
         </Form.Group>
+        
+        <ImageUpload setImage={setImage} />
+
         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
           <Form.Label style={{ fontWeight: 'bold' }}>내용</Form.Label>
-          <Form.Control as="textarea" rows={20} style={{ resize: 'none' }} value={Content} onChange={(e) => {setContent(e.target.value);}} />
+          <Form.Control as="textarea" rows={20} style={{ resize: 'none' }} className='shadow-none' value={Content} onChange={(e) => {setContent(e.target.value);}} />
         </Form.Group>
         <Button variant="dark" style={{ float: 'right' }} onClick={(e) => {onSubmit(e)}}>등록</Button>
       </Form>
