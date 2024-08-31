@@ -12,12 +12,14 @@
 9. css 프레임워크[클라이언트] : `npm i react-bootstrap bootstrap` <br />
 10. React Toast Popup 모듈 설치[클라이언트] : `npm i react-simple-toasts` <br />
 11. 이미지 업로드를 위한 라이브러리 설치[서버] : `npm i -S multer` <br />
-12. React 중앙집중식 상태관리 라이브러리 Redux 설치 : `npm install redux` <br />
+12. 네이버 클라우드 오브젝트 스토리지에 이미지를 업로드하기 위한 라이브러리 설치[서버] : `npm i -S multer-s3` <br />
+13. 네이버 클라우드 오브젝트 스토리지 라이브러리 설치[서버] : `npm i -S aws-sdk@2.348.0` <br />
+14. React 중앙집중식 상태관리 라이브러리 Redux 설치 : `npm install redux` <br />
 
 ## 기능
-1. 레시피 글 쓰기
+1. 레시피 글 쓰기 (이미지 업로드 포함 - 일단 1장만 업로드되게 구현)
 2. 레시피 글 읽기
-3. 레시피 글 수정
+3. 레시피 글 수정 (이미지 업로드 포함 - 일단 1장만 업로드되게 구현)
 4. 레시피 글 삭제
 5. 레시피 댓글 쓰기
 6. 레시피 댓글 읽기
@@ -30,8 +32,8 @@
 1. 레시피 글 모델[/Model/Post.js] : title(글 제목), content(글 내용), postNum(글 고유번호)
 2. 레시피 글 각각에 부여될 번호 모델[/Model/Counter.js] : name(document를 추적하기 위함), postNum(각각의 글에 부여될 숫자)
 
-## 외부 라이브러리
-1. 네이버 클라우드 사진 업로드
+## 외부 API
+1. 네이버 클라우드 Object Storage에 사진 업로드 (multer를 이용해 서버에 사진을 계속 저장해두면, 부담이 심해짐) -> Object Storage에 이미지를 업로드하고, Object Storage로부터 URL을 받아서 사용자에게 보여줌
 
 ## 프로젝트 하는데 큰 도움받은 공식 문서들
 1. React Router : `https://reactrouter.com/en/main` <br />
@@ -40,3 +42,5 @@
 4. axios : `https://axios-http.com/kr/docs/intro` <br />
 5. react bootstrap : `https://react-bootstrap.netlify.app/` <br />
 6. multer : `https://github.com/expressjs/multer` <br />
+7. multer-s3(for naver cloud) : `https://www.npmjs.com/package/multer-s3` <br />
+8. naver cloud object storage : `https://guide.ncloud-docs.com/docs/storage-storage-8-4` <br />

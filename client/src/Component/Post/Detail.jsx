@@ -70,7 +70,7 @@ function Detail() {
                 {/* 사용자가 이미지를 업로드 할수도 있고 안할수도 있으니, 이미지가 있는지 체크 */}
                 {
                   PostInfo.image ?
-                  (<img src={`http://localhost:3000/${PostInfo.image}`} alt="" style={{ width: '100%', height: 'auto' }} />)
+                  (<img src={PostInfo.image} alt="" style={{ width: '230px', height: '230px' }} />)
                   :
                   (null)
                 }
