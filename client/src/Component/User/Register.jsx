@@ -16,6 +16,8 @@ function Register() {
   const [PW, setPW] = useState('');
   const [PWConfirm, setPWConfirm] = useState('');
   const [Flag, setFlag] = useState(false); // 회원가입 시 시간지연 때문에 회원가입 버튼 여러번 누르는거 방지
+  const [NameCheck, setNameCheck] = useState(false);
+  const [NameInfo, setNameInfo] = useState('');
 
   let navigate = useNavigate();
 
@@ -29,6 +31,10 @@ function Register() {
     }
     if ( PW != PWConfirm ) {
       return toast('비밀번호가 일치하지 않습니다. 😓');
+    }
+
+    if ( !NameCheck ) {
+      return toast('닉네임 중복검사를 진행해주세요. 😓')
     }
 
     // firebase가 회원가입할때까지 잠시 대기 (async, await)
@@ -63,6 +69,31 @@ function Register() {
     })
   };
 
+  const NameCheckFunc = (e) => {
+    e.preventDefault();
+
+    if ( !Name ) {
+      return toast('닉네임을 입력해주세요. 😓');
+    }
+
+    let body = {
+      displayName: Name,
+    };
+
+    axios.post('/api/user/nameCheck', body)
+    .then((response) => {
+      if (response.data.success) {
+        if (response.data.check) {
+          setNameCheck(true);
+          setNameInfo('사용가능한 닉네임입니다. ');
+        }
+        else {
+          setNameInfo('사용불가능한 닉네임입니다. ');
+        }
+      }
+    })
+  };
+
   return (
     <div className='container'>
       <MDBContainer fluid className="p-3 my-5 h-custom">
@@ -73,10 +104,26 @@ function Register() {
 
           <MDBCol col='4' md='6'>
             <form action="" method="post">
-              <MDBInput wrapperClass='mb-4' label='이름' id='formControlLg' type='name' value={Name} size="md" className='shadow-none' onChange={(e) => setName(e.target.value)} />
-              <MDBInput wrapperClass='mb-4' label='이메일' id='formControlLg' type='email' value={Email} size="md" className='shadow-none' onChange={(e) => setEmail(e.target.value)} />
-              <MDBInput wrapperClass='mb-4' label='비밀번호(*최소 6자리 입력)' minLength={6} id='formControlLg' type='password' value={PW} size="md" className='shadow-none' onChange={(e) => setPW(e.target.value)} />
-              <MDBInput wrapperClass='mb-4' label='비밀번호 확인(*최소 6자리 입력)' minLength={6} id='formControlLg' type='password' value={PWConfirm} size="md" className='shadow-none' onChange={(e) => setPWConfirm(e.target.value)} />
+              <div className='form-group mb-4'>
+                <label htmlFor='formControlName'>닉네임</label>
+                <MDBInput id='formControlName' type='name' value={Name} size="md" className='shadow-none' disabled={NameCheck} onChange={(e) => setName(e.target.value)} />
+                {NameInfo && <div className="form-text">{NameInfo}</div>}
+                {
+                  !NameCheck && (<MDBBtn className="mb-1 px-2" size='sm' color='dark' noRipple='true' onClick={(e) => NameCheckFunc(e)} style={{ marginTop: '10px' }}>닉네임 중복검사</MDBBtn>)
+                }
+              </div>
+              <div className='form-group mb-4'>
+                <label htmlFor='formControlEmail'>이메일</label>
+                <MDBInput id='formControlEmail' type='email' value={Email} size="md" className='shadow-none' onChange={(e) => setEmail(e.target.value)} />
+              </div>
+              <div className='form-group mb-4'>
+                <label htmlFor='formControlPW'>비밀번호(*최소 6자리 입력)</label>
+                <MDBInput minLength={6} id='formControlPW' type='password' value={PW} size="md" className='shadow-none' onChange={(e) => setPW(e.target.value)} />
+              </div>
+              <div className='form-group mb-4'>
+                <label htmlFor='formControlPWConfirm'>비밀번호 확인(*최소 6자리 입력)</label>
+                <MDBInput minLength={6} id='formControlPWConfirm' type='password' value={PWConfirm} size="md" className='shadow-none' onChange={(e) => setPWConfirm(e.target.value)} />
+              </div> 
               <div className='text-center text-md-start mt-4 pt-2'>
                 <MDBBtn className="mb-0 px-5" size='md' color='dark' noRipple='true' disabled={Flag} onClick={(e) => RegisterFunc(e)}>회원가입</MDBBtn>
               </div>
