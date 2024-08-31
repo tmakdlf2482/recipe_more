@@ -4,32 +4,43 @@ const multer  = require('multer');
 
 const { Post } = require('../Model/Post.js');
 const { Counter } = require('../Model/Counter.js');
+const { User } = require('../Model/User.js');
 
 const setUpload = require('../Util/upload.js');
 
 router.post('/submit', (req, res) => {
-  let temp = req.body; // 글의 제목, 내용이 넘어옴
+  let temp = {
+    title: req.body.title,
+    content: req.body.content,
+    image: req.body.image,
+  }; // 글의 제목, 내용, 이미지경로가 넘어옴
 
   Counter.findOne({ name: 'counter' }).exec()
   .then((counter) => {
     temp.postNum = counter.postNum; // temp.postNum은 mongodb의 postNum
     
-    const RecipePost = new Post(temp); // temp는 { title: '', content: '', postNum: 1 } 이런식으로 저장됨
-    RecipePost.save()
-    .then(() => {
-      Counter.updateOne({ name: 'counter' }, { $inc: { postNum: 1 } })
+    User.findOne({ uid: req.body.uid }).exec() // uid에 대응되는 user 찾기
+    .then((userInfo) => {
+      temp.author = userInfo._id; // 결론적으로 mongodb posts에 author가 추가됨
+
+      const RecipePost = new Post(temp); // temp는 { title: '', content: '', postNum: 1, image: 'https://react-recipe.kr.object.ncloudstorage.com/post', author: ObjectId('1a2b3c4d5e') } 이런식으로 저장됨
+      RecipePost.save()
       .then(() => {
-        res.status(200).json({ success: true });
+        Counter.updateOne({ name: 'counter' }, { $inc: { postNum: 1 } })
+        .then(() => {
+          res.status(200).json({ success: true });
+        });
       });
-    });
+    })
   })
   .catch(() => {
     res.status(400).json({ success: false });
   });
 });
 
-router.post('/list', (req, res) => {
-  Post.find().exec()
+router.post('/list', (req, res) => { // 유저의 정보가 필요, .populate('author') 로 불러옴
+  // .populate('author') 는 document에 저장된 데이터중에 혹시 objectId로 저장된 데이터가 있다면 그 objectId에 대응되는 document를 찾아 하위 document로 합쳐줘서 보내줌
+  Post.find().populate('author').exec()
     .then((doc) => {
       res.status(200).json({ success: true, postList: doc });
     })
@@ -38,8 +49,9 @@ router.post('/list', (req, res) => {
     });
 });
 
-router.post('/detail', (req, res) => {
-  Post.findOne({ postNum: Number(req.body.postNum) }).exec() // Number()는 parseInt와 동일, String을 Number로 바꿔줌
+router.post('/detail', (req, res) => { // 유저의 정보가 필요, .populate('author') 로 불러옴
+  // .populate('author') 는 document에 저장된 데이터중에 혹시 objectId로 저장된 데이터가 있다면 그 objectId에 대응되는 document를 찾아 하위 document로 합쳐줘서 보내줌
+  Post.findOne({ postNum: Number(req.body.postNum) }).populate('author').exec() // Number()는 parseInt와 동일, String을 Number로 바꿔줌
     .then((doc) => {
       // console.log(doc);
       res.status(200).json({ success: true, post: doc });

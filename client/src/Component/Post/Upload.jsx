@@ -3,6 +3,7 @@ import { Form, Button } from 'react-bootstrap';
 import toast, { toastConfig } from 'react-simple-toasts';
 import 'react-simple-toasts/dist/theme/dark.css';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import axios from 'axios';
 import ImageUpload from './ImageUpload.jsx';
 
@@ -16,18 +17,27 @@ function Upload() {
   const [Image, setImage] = useState(''); // Image에는 파일 경로가 들어옴
 
   let navigate = useNavigate();
+  let user = useSelector(state => state.user);
+
+  useEffect(() => { // 로그인한 사용자만 게시글 등록 가능
+    if ( !user.accessToken ) {
+      toast('로그인한 사용자만 글을 작성할 수 있습니다. 😓');
+      navigate('/login');
+    }
+  }, []);
   
   const onSubmit = (e) => {
     e.preventDefault(); // 새로고침 방지
 
     if (Title === '' || Content === '') {
-      return alert('모든 항목을 채워주세요!');
+      return toast('모든 항목을 채워주세요! 😓');
     }
 
     let body = {
       title: Title,
       content: Content,
       image: Image,
+      uid: user.uid, // firebase의 유저의 고유한 uid
     };
 
     axios.post('/api/post/submit', body)

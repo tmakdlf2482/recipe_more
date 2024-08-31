@@ -48,7 +48,7 @@ function Edit() {
     e.preventDefault(); // 새로고침 방지
 
     if (Title === '' || Content === '') {
-      return alert('모든 항목을 채워주세요!');
+      return toast('모든 항목을 채워주세요! 😓');
     }
 
     let body = {

@@ -37,6 +37,7 @@
 1. 레시피 글 모델[/Model/Post.js] : title(글 제목), content(글 내용), postNum(글 고유번호)
 2. 레시피 글 각각에 부여될 번호 모델[/Model/Counter.js] : name(document를 추적하기 위함), postNum(각각의 글에 부여될 숫자)
 3. 사용자 모델[/Model/User.js] : userNum(사용자의 고유번호), displayName(사용자의 이름), email(사용자의 이메일), uid(사용자의 uid)
+<참고> 외래키 관계 : User.js의 _id가 기본키, Post.js의 author가 외래키
 
 ## 외부 API
 1. 네이버 클라우드 Object Storage에 사진 업로드 (multer를 이용해 서버에 사진을 계속 저장해두면, 부담이 심해짐) -> Object Storage에 이미지를 업로드하고, Object Storage로부터 URL을 받아서 사용자에게 보여줌
