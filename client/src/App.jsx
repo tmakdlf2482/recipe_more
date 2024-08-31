@@ -1,5 +1,8 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { loginUser, clearUser } from './Reducer/userSlice.js';
+import firebase from './firebase.js';
 
 import Heading from './Component/Heading.jsx';
 import List from './Component/Post/List.jsx';
@@ -11,8 +14,32 @@ import Login from './Component/User/Login.jsx';
 import Register from './Component/User/Register.jsx';
 
 function App() {
+  // const user = useSelector(state => state.user);
+
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((userInfo) => { // 로그인, 로그아웃 상태변화
+      // console.log('userInfo : ', userInfo);
+      if (userInfo !== null) {
+        dispatch(loginUser(userInfo.multiFactor.user));
+      }
+      else {
+        dispatch(clearUser()); // 그냥 정보가 없는 상태
+      }
+    });
+  }, []);
+  
+  // useEffect(() => { // 로그아웃
+  //   // firebase.auth().signOut();
+  // }, []);
+
+  // useEffect(() => {
+  //   // console.log('user : ', user);
+  // }, [user]);
+  
   return (
-    <>
+    <BrowserRouter>
       <Heading />
       <Routes>
         <Route path='/' element={<List />} />
@@ -22,7 +49,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
       </Routes>
-    </>
+    </BrowserRouter>
   );
 }
 
