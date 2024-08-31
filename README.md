@@ -14,7 +14,8 @@
 11. 이미지 업로드를 위한 라이브러리 설치[서버] : `npm i -S multer` <br />
 12. 네이버 클라우드 오브젝트 스토리지에 이미지를 업로드하기 위한 라이브러리 설치[서버] : `npm i -S multer-s3` <br />
 13. 네이버 클라우드 오브젝트 스토리지 라이브러리 설치[서버] : `npm i -S aws-sdk@2.348.0` <br />
-14. React 중앙집중식 상태관리 라이브러리 Redux 설치 : `npm install redux` <br />
+14. 로그인, 회원가입 페이지 템플릿을 위한 프레임워크 설치[클라이언트] : `npm i mdb-react-ui-kit` <br />
+15. React 중앙집중식 상태관리 라이브러리 Redux 설치 : `npm install redux` <br />
 
 ## 기능
 1. 레시피 글 쓰기 (이미지 업로드 포함 - 일단 1장만 업로드되게 구현)
@@ -44,3 +45,4 @@
 6. multer : `https://github.com/expressjs/multer` <br />
 7. multer-s3(for naver cloud) : `https://www.npmjs.com/package/multer-s3` <br />
 8. naver cloud object storage : `https://guide.ncloud-docs.com/docs/storage-storage-8-4` <br />
+9. login, register form template : `https://mdbootstrap.com/docs/react/extended/login-form/` <br />

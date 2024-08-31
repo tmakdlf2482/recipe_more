@@ -10,7 +10,8 @@ function Heading() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Link to='/upload' style={{ color: 'white', textDecoration: 'none' }}>업로드</Link>
+            <Link to='/upload' style={{ color: 'white', textDecoration: 'none', marginRight: '10px' }}>업로드</Link>
+            <Link to='/login' style={{ color: 'white', textDecoration: 'none' }}>로그인</Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
