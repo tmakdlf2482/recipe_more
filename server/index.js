@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
+const config = require('./config/key.js');
 
 const app = express();
 const port = 3000;
@@ -19,7 +20,7 @@ app.use('/api/post', require('./Router/post.js')); // '/api/post' : post.js에�
 // 서버 연결
 app.listen(port, () => {
   // mongoose에 mongodb atlas의 나의 몽고db와 연결
-  mongoose.connect('mongodb+srv://admin:ekfdls1!8@reactcommunity.02w4ilq.mongodb.net/Recipe?retryWrites=true&w=majority&appName=reactcommunity')
+  mongoose.connect(config.mongoURI)
     .then(() => {
       console.log(`Server running ... >>> http://localhost:${port}`);
       console.log('Connecting MongoDB...');
