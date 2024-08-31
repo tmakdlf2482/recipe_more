@@ -6,6 +6,10 @@ import toast, { toastConfig } from 'react-simple-toasts';
 import 'react-simple-toasts/dist/theme/dark.css';
 import axios from 'axios';
 
+toastConfig (
+  { theme: 'dark' }
+)
+
 function Edit() {
   const [Title, setTitle] = useState('');
   const [Content, setContent] = useState('');
@@ -76,7 +80,7 @@ function Edit() {
           <Form.Label style={{ fontWeight: 'bold' }}>내용</Form.Label>
           <Form.Control as="textarea" rows={20} style={{ resize: 'none' }} value={Content} onChange={(e) => {setContent(e.target.value);}} />
         </Form.Group>
-        <Button variant="dark" style={{ float: 'right' }} onClick={(e) => {onSubmit(e)}}>등록</Button>
+        <Button variant="dark" style={{ float: 'right' }} onClick={(e) => {onSubmit(e)}}>수정</Button>
         <Button variant="danger" style={{ float: 'right', marginRight: '10px' }} onClick={(e) => {e.preventDefault(); navigate(-1);}}>취소</Button>
       </Form>
     </div>

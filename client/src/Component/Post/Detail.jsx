@@ -1,19 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom'; // useParams는 http://localhost:5173/post/1의 경우 1을 들고옴
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button, Spinner } from 'react-bootstrap';
+import toast, { toastConfig } from 'react-simple-toasts';
+import 'react-simple-toasts/dist/theme/dark.css';
 import axios from 'axios';
+
+toastConfig (
+  { theme: 'dark' }
+)
 
 function Detail() {
   const [PostInfo, setPostInfo] = useState({});
   const [Flag, setFlag] = useState(false);
 
+  let navigate = useNavigate();
   let params = useParams(); // params 출력 결과는 {postNum: '1'}
 
   useEffect(() => {
     let body = {
       postNum: params.postNum,
-    }
+    };
 
     axios.post('/api/post/detail', body)
     .then((response) => {
@@ -30,6 +37,26 @@ function Detail() {
   useEffect(() => {
     console.log(PostInfo);
   }, [PostInfo]);
+
+  const DeleteHandler = () => {
+    // 정말 삭제하시겠습니까? 메시지 창
+    if (window.confirm('정말로 삭제하시겠습니까?')) {
+      let body = {
+        postNum: params.postNum,
+      };
+  
+      axios.post('/api/post/delete', body)
+      .then((response) => {
+        if (response.data.success) {
+          toast('게시글이 삭제되었습니다. 😊');
+          navigate('/');
+        }
+      })
+      .catch((err) => {
+        toast('게시글이 삭제에 실패하였습니다. 😓');
+      });
+    }
+  };
   
   return (
     <div className='container'>
@@ -46,7 +73,7 @@ function Detail() {
                 <Link to={`/edit/${PostInfo.postNum}`}>
                   <Button variant="primary" size="sm">수정</Button>
                 </Link>
-                <Button variant="danger" size="sm" style={{ marginLeft: '10px' }}>삭제</Button>
+                <Button variant="danger" size="sm" style={{ marginLeft: '10px' }} onClick={() => {DeleteHandler()}}>삭제</Button>
               </div>
             </>
           )
