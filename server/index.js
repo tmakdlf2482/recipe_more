@@ -51,7 +51,7 @@ app.post('/api/post/submit', (req, res) => {
       });
     });
   })
-  .catch((err) => {
+  .catch(() => {
     res.status(400).json({ success: false });
   });
 });
@@ -61,7 +61,7 @@ app.post('/api/post/list', (req, res) => {
     .then((doc) => {
       res.status(200).json({ success: true, postList: doc });
     })
-    .catch((err) => {
+    .catch(() => {
       res.status(400).json({ success: false });
     });
 });
@@ -72,7 +72,23 @@ app.post('/api/post/detail', (req, res) => {
       // console.log(doc);
       res.status(200).json({ success: true, post: doc });
     })
-    .catch((err) => {
+    .catch(() => {
+      res.status(400).json({ success: false });
+    });
+});
+
+app.post('/api/post/edit', (req, res) => {
+  let temp = {
+    title: req.body.title,
+    content: req.body.content,
+  };
+
+  // $set: { plot: `A harvest of random numbers, such as: ${Math.random()}` }, 공식 문서 예시, temp가 어차피 object 타입이니까
+  Post.updateOne({ postNum: Number(req.body.postNum) }, { $set: temp }).exec() // Number()는 parseInt와 동일, String을 Number로 바꿔줌
+    .then(() => {
+      res.status(200).json({ success: true });
+    })
+    .catch(() => {
       res.status(400).json({ success: false });
     });
 });
