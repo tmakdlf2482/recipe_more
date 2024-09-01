@@ -30,10 +30,11 @@ function CommentUpload(props) {
 
     axios.post('/api/comment/submit', body)
     .then((response) => {
-      setComment(''); // 댓글 초기화
+      // setComment(''); // 댓글 초기화
 
       if (response.data.success) {
         toast('댓글이 작성되었습니다. 😊');
+        window.location.reload(); // 새로고침
       }
       else {
         toast('댓글이 작성되지 않았습니다. 😓');

@@ -29,4 +29,17 @@ router.post('/submit', (req, res) => {
   });
 });
 
+router.post('/getComment', (req, res) => {
+  Comment.find({postId: req.body.postId})
+  .populate('author')
+  .exec()
+  .then((commentInfo) => {
+    // console.log(commentInfo); // 전체 댓글 리스트 불러옴
+    res.status(200).json({ success: true, commentList: commentInfo });
+  })
+  .catch(() => {
+    res.status(400).json({ success: false });
+  });
+});
+
 module.exports = router;
