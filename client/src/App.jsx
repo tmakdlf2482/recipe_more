@@ -12,6 +12,7 @@ import Edit from './Component/Post/Edit.jsx';
 
 import Login from './Component/User/Login.jsx';
 import Register from './Component/User/Register.jsx';
+import MyPage from './Component/User/MyPage.jsx';
 
 function App() {
   // const user = useSelector(state => state.user);
@@ -43,11 +44,16 @@ function App() {
       <Heading />
       <Routes>
         <Route path='/' element={<List />} />
+        
+        {/* Post, Comment */}
         <Route path='/upload' element={<Upload />} />
         <Route path='/post/:postNum' element={<PostArea />} />
         <Route path='/edit/:postNum' element={<Edit />} />
+        
+        {/* User */}
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
+        <Route path='/mypage' element={<MyPage />} />
       </Routes>
     </BrowserRouter>
   );

@@ -4,6 +4,7 @@ import { InputGroup, Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 import toast, { toastConfig } from 'react-simple-toasts';
 import 'react-simple-toasts/dist/theme/dark.css';
+import Avatar from 'react-avatar';
 
 toastConfig (
   { theme: 'dark' }
@@ -73,7 +74,10 @@ function CommentContent(props) {
       <div>
         <div style={{ height: 'auto', background: '#ffffff' }}>
           <div style={{ display: 'flex', marginBottom: '5px', justifyContent: 'space-between', alignItems: 'center' }}>
-            <p style={{ margin: 0, fontSize: '12px', fontWeight: 'bold', color: 'darkgray' }}>{props.comment.author.displayName}</p>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <Avatar size='30' round={true} src={props.comment.author.photoURL} style={{ border: '1px solid #c6c6c6' }} />
+              <p style={{ margin: 0, marginLeft: '10px', fontSize: '12px', fontWeight: 'bold', color: 'darkgray' }}>{props.comment.author.displayName}</p>
+            </div>
             {/* 해당 댓글의 작성자만 수정, 삭제 가능하도록 */}
             {
               props.comment.author.uid === user.uid &&

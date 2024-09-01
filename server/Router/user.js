@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+const setUpload = require('../Util/upload.js');
 const { User } = require('../Model/User.js');
 const { Counter } = require('../Model/Counter.js');
 
@@ -44,6 +45,26 @@ router.post('/nameCheck', (req, res) => {
     console.log(err);
     res.status(400).json({ success: false });
   });
+});
+
+router.post('/profile/img', setUpload('react-recipe/user'), (req, res, next) => {
+  // console.log(res.req);
+  // console.log(res.req.file.location);
+  res.status(200).json({ success: true, filePath: res.req.file.location }); // 저장한 이미지의 경로를 다시 클라이언트에 전송
+});
+
+router.post('/profile/update', (req, res) => {
+  let temp = {
+    photoURL: req.body.photoURL,
+  };
+
+  User.updateOne({ uid: req.body.uid }, { $set: temp }).exec() // Number()는 parseInt와 동일, String을 Number로 바꿔줌
+    .then(() => {
+      res.status(200).json({ success: true });
+    })
+    .catch(() => {
+      res.status(400).json({ success: false });
+    });
 });
 
 module.exports = router;

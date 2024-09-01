@@ -34,7 +34,7 @@ function Register() {
     }
 
     if ( !NameCheck ) {
-      return toast('닉네임 중복검사를 진행해주세요. 😓')
+      return toast('닉네임 중복검사를 진행해주세요. 😓');
     }
 
     // firebase가 회원가입할때까지 잠시 대기 (async, await)
@@ -42,6 +42,7 @@ function Register() {
 
     await createdUser.user.updateProfile({
       displayName: Name, // 사용자 이름
+      photoURL: 'https://kr.object.ncloudstorage.com/react-recipe/user/user.png', // 사용자 프로필 이미지
     });
 
     // console.log(createdUser.user);
@@ -52,6 +53,7 @@ function Register() {
       displayName: createdUser.user.multiFactor.user.displayName, // 사용자 이름
       email: createdUser.user.multiFactor.user.email, // 이메일
       uid: createdUser.user.multiFactor.user.uid, // 고유id
+      photoURL: 'https://kr.object.ncloudstorage.com/react-recipe/user/user.png', // 프로필 이미지
     };
 
     axios.post('/api/user/register', body)
@@ -60,6 +62,7 @@ function Register() {
 
       if (response.data.success) {
         // 회원가입 성공시
+        toast('회원가입에 성공하였습니다. 😊');
         navigate('/login');
       }
       else {

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../../Style/ListCSS.css';
 import ImageSlider, { Slide } from 'react-auto-image-slider';
+import Avatar from 'react-avatar';
 
 function List() {
   const [PostList, setPostList] = useState([]);
@@ -55,8 +56,11 @@ function List() {
                     transition: 'transform 0.3s ease, box-shadow 0.3s ease'}} className='list-group'>
                     <ListGroup.Item style={{ border: 'none', }}>
                       <p style={{ fontWeight: 'bold' }}>{post.title}</p>
-                      <p className='author'>{post.author.displayName}</p>
-                      <p>{post.content}</p>
+                      <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <Avatar size='40' round={true} src={post.author.photoURL} style={{ border: '1px solid #c6c6c6', marginRight: '10px' }} />
+                        <p style={{ color: 'darkgray', margin: '0px' }}>{post.author.displayName}</p>
+                      </div>
+                      <p style={{ margin: '10px 0px' }}>{post.content}</p>
                     </ListGroup.Item>
                   </ListGroup>
                 </Link>

@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import toast, { toastConfig } from 'react-simple-toasts';
 import 'react-simple-toasts/dist/theme/dark.css';
+import Avatar from 'react-avatar';
 import axios from 'axios';
 
 toastConfig (
@@ -44,7 +45,10 @@ function Detail(props) {
       <div style={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
         <div style={{ height: 'auto', background: '#ffffff', padding: '30px 20px', boxShadow: '0px 19px 38px rgba(0, 0, 0, 0.03), 0px 15px 12px rgba(0, 0, 0, 0.1)' }}>
           <h1 style={{ fontWeight: 'bold' }}>{props.PostInfo.title}</h1>
-          <p style={{ color: 'darkgray' }}>{props.PostInfo.author.displayName}</p>
+          <p style={{ color: 'darkgray' }}>
+            <Avatar size='40' round={true} src={props.PostInfo.author.photoURL} style={{ border: '1px solid #c6c6c6', marginRight: '10px' }} />
+            {props.PostInfo.author.displayName}
+          </p>
           {/* 사용자가 이미지를 업로드 할수도 있고 안할수도 있으니, 이미지가 있는지 체크 */}
           {
             props.PostInfo.image ?
