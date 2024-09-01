@@ -24,7 +24,7 @@
 ## 기능
 1. 로그인
 2. 로그아웃
-3. 회원가입
+3. 회원가입 (닉네임 중복검사)
 4. 레시피 글 쓰기 (이미지 업로드 포함 - 일단 1장만 업로드되게 구현)
 5. 레시피 글 읽기
 6. 레시피 글 수정 (이미지 업로드 포함 - 일단 1장만 업로드되게 구현)
@@ -34,14 +34,15 @@
 10. 레시피 댓글 수정
 11. 레시피 댓글 삭제
 12. 댓글 정렬
-13. 프로필 사진 변경
+13. 레시피 글 검색 (제목, 내용)
+14. 프로필 사진 변경
 
 ## DB 모델
-1. 레시피 글 모델[/Model/Post.js] : title(글 제목), content(글 내용), postNum(글 고유번호)
-2. 레시피 글 각각에 부여될 번호 모델[/Model/Counter.js] : name(document를 추적하기 위함), postNum(각각의 글에 부여될 숫자)
-3. 댓글 모델[/Model/Comment.js] : comment(댓글 내용)
+1. 레시피 글 모델[/Model/Post.js] : title(글 제목), content(글 내용), postNum(글 고유번호), image(글의 이미지 경로), author(어떤 사용자가 글을 썻는지), commentNum(댓글 갯수)
+2. 레시피 글 각각에 부여될 번호 모델[/Model/Counter.js] : name(document를 추적하기 위함), postNum(각각의 글에 부여될 숫자), userNum(각각의 사용자들에게 부여될 숫자)
+3. 댓글 모델[/Model/Comment.js] : comment(댓글 내용), author(누가 댓글을 썻는지), postId(댓글이 어떤 게시글에 속해 있는지)
 <참고> 외래키 관계 : (1)User.js의 _id가 기본키, Comment.js의 author가 외래키 // (2)Post.js의 _id가 기본키, Comment.js의 postId가 외래키
-4. 사용자 모델[/Model/User.js] : userNum(사용자의 고유번호), displayName(사용자의 이름), email(사용자의 이메일), uid(사용자의 uid)
+4. 사용자 모델[/Model/User.js] : userNum(사용자의 고유번호), displayName(사용자의 이름), email(사용자의 이메일), uid(사용자의 uid), photoURL(사용자의 프로필 이미지 URL)
 <참고> 외래키 관계 : User.js의 _id가 기본키, Post.js의 author가 외래키
 
 ## 외부 API
