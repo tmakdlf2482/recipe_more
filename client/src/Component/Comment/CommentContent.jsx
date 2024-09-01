@@ -43,6 +43,31 @@ function CommentContent(props) {
     })
   };
 
+  const DeleteHandler = (e) => {
+    e.preventDefault();
+
+    // 정말 삭제하시겠습니까? 메시지 창
+    if (window.confirm('정말로 삭제하시겠습니까?')) {
+      let body = {
+        postId: props.comment.postId,
+        commentId: props.comment._id,
+      };
+  
+      axios.post('/api/comment/delete', body)
+      .then((response) => {
+        if (response.data.success) {
+          toast('댓글이 삭제되었습니다. 😊');
+          setTimeout(() => {
+            window.location.reload(); // 새로고침
+          }, 500);
+        }
+      })
+      .catch((err) => {
+        toast('댓글 삭제에 실패하였습니다. 😓');
+      });
+    }
+  };
+
   return (
     <div>
       <div>
@@ -67,7 +92,7 @@ function CommentContent(props) {
                         boxShadow: '0px 5px 10px rgba(0, 0, 0, 0.03), 0px 7.5px 6px rgba(0, 0, 0, 0.1)',
                         borderRadius: '10px', zIndex: '1', }} ref={ref}>
                           <p style={{ color: 'black', marginBottom: '0px', cursor: 'pointer' }} onClick={() => {setEditFlag(true); setModalFlag(false);}}>수정</p>
-                          <p style={{ color: 'red', marginBottom: '0px', cursor: 'pointer' }}>삭제</p>
+                          <p style={{ color: 'red', marginBottom: '0px', cursor: 'pointer' }} onClick={(e) => DeleteHandler(e)}>삭제</p>
                       </div>
                     )
                   }

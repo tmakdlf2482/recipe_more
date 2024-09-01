@@ -49,9 +49,28 @@ router.post('/edit', (req, res) => {
     postId: req.body.postId,
   };
 
-  Comment.findOneAndUpdate({ _id: req.body.commentId}, { $set: temp}).exec()
+  Comment.findOneAndUpdate({ _id: req.body.commentId }, { $set: temp}).exec()
   .then(() => {
     res.status(200).json({ success: true });
+  })
+  .catch(() => {
+    res.status(400).json({ success: false});
+  });
+});
+
+router.post('/delete', (req, res) => {
+  let temp = {
+    uid: req.body.uid,
+    comment: req.body.comment,
+    postId: req.body.postId,
+  };
+
+  Comment.deleteOne({ _id: req.body.commentId }).exec()
+  .then(() => {
+    Post.findOneAndUpdate({ _id: req.body.postId }, { $inc: { commentNum: -1 } }).exec()
+    .then(() => {
+      res.status(200).json({ success: true });
+    });
   })
   .catch(() => {
     res.status(400).json({ success: false});
