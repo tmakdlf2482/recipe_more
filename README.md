@@ -17,6 +17,7 @@
 14. 로그인, 회원가입 페이지 템플릿을 위한 프레임워크 설치[클라이언트] : `npm i mdb-react-ui-kit` <br />
 15. firebase 설치[클라이언트] : `npm i firebase` <br />
 16. React 중앙집중식 상태관리 라이브러리 Redux toolkit 설치[클라이언트] : `npm install @reduxjs/toolkit react-redux` <br />
+17. 자동 이미지 슬라이더 라이브러리 설치[클라이언트] : `npm i react-auto-image-slider` <br />
 
 ## 기능
 1. 로그인
@@ -57,3 +58,5 @@
 9. login, register form template : `https://mdbootstrap.com/docs/react/extended/login-form/` <br />
 10. firebase authentication : `https://firebase.google.com/docs/auth/web/start?hl=ko&_gl=1*rels6p*_up*MQ..*_ga*MTM4MDExMDE2LjE3MjUwOTkzMTg.*_ga_CW55HF8NVT*MTcyNTA5OTMxNy4xLjAuMTcyNTA5OTMxNy4wLjAuMA..` <br />
 11. redux toolkit : `https://ko.redux.js.org/introduction/getting-started/` <br />
+12. useOnClickOutside hook : `https://designcode.io/react-hooks-handbook-useonclickoutside-hook` <br />
+13. react auto image slider : `https://github.com/carsonmj/react-auto-image-slider` <br />

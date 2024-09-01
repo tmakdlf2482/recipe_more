@@ -42,4 +42,20 @@ router.post('/getComment', (req, res) => {
   });
 });
 
+router.post('/edit', (req, res) => {
+  let temp = {
+    uid: req.body.uid,
+    comment: req.body.comment,
+    postId: req.body.postId,
+  };
+
+  Comment.findOneAndUpdate({ _id: req.body.commentId}, { $set: temp}).exec()
+  .then(() => {
+    res.status(200).json({ success: true });
+  })
+  .catch(() => {
+    res.status(400).json({ success: false});
+  });
+});
+
 module.exports = router;

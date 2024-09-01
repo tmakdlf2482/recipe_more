@@ -34,7 +34,9 @@ function CommentUpload(props) {
 
       if (response.data.success) {
         toast('댓글이 작성되었습니다. 😊');
-        window.location.reload(); // 새로고침
+        setTimeout(() => {
+          window.location.reload(); // 새로고침
+        }, 500);
       }
       else {
         toast('댓글이 작성되지 않았습니다. 😓');
