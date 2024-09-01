@@ -1,0 +1,15 @@
+.GNBDiv {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.GNBDiv .search {
+  display: grid;
+  min-width: 40%;
+  grid-template-columns: 8fr 2fr;
+  grid-template-rows: auto;
+}

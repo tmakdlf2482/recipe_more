@@ -39,8 +39,20 @@ router.post('/submit', (req, res) => {
 });
 
 router.post('/list', (req, res) => { // 유저의 정보가 필요, .populate('author') 로 불러옴
+  let sort = {
+
+  };
+
+  if (req.body.sort === '최신순') {
+    sort.createdAt = -1;
+  }
+  else {
+    // 인기순
+    sort.repleNum = -1;
+  }
+  
   // .populate('author') 는 document에 저장된 데이터중에 혹시 objectId로 저장된 데이터가 있다면 그 objectId에 대응되는 document를 찾아 하위 document로 합쳐줘서 보내줌
-  Post.find().populate('author').exec()
+  Post.find({ $or: [{title: {$regex: req.body.searchTerm}}, {content: {$regex: req.body.searchTerm}}], }).populate('author').sort(sort).exec()
     .then((doc) => {
       res.status(200).json({ success: true, postList: doc });
     })
