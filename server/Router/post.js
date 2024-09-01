@@ -48,11 +48,16 @@ router.post('/list', (req, res) => { // 유저의 정보가 필요, .populate('a
   }
   else {
     // 인기순
-    sort.repleNum = -1;
+    sort.commentNum = -1;
   }
   
   // .populate('author') 는 document에 저장된 데이터중에 혹시 objectId로 저장된 데이터가 있다면 그 objectId에 대응되는 document를 찾아 하위 document로 합쳐줘서 보내줌
-  Post.find({ $or: [{title: {$regex: req.body.searchTerm}}, {content: {$regex: req.body.searchTerm}}], }).populate('author').sort(sort).exec()
+  Post.find({ $or: [{title: {$regex: req.body.searchTerm}}, {content: {$regex: req.body.searchTerm}}], })
+  .populate('author')
+  .sort(sort)
+  .skip(req.body.skip) // 0번째부터 찾고, 5번째부터 찾고 ...
+  .limit(5) // 한번에 찾을 document의 숫자
+  .exec()
     .then((doc) => {
       res.status(200).json({ success: true, postList: doc });
     })
