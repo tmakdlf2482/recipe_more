@@ -10,6 +10,10 @@ const postSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId, // _id:ObjectId('1a2b3c4d5e')
     ref: 'User', // 어떤 모델의 ObjectId인지, 흡사 관계형 DB의 외래키 역할인거 같음
   },
+  commentNum: { // 댓글 갯수
+    type: Number,
+    default: 0,
+  }
 }, { collection: 'posts' });
 
 const Post = mongoose.model('Post', postSchema);

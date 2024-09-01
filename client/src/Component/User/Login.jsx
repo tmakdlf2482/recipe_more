@@ -49,8 +49,14 @@ function Login() {
 
           <MDBCol col='4' md='6'>
             <form action="" method="post">
-              <MDBInput wrapperClass='mb-4' label='이메일' id='formControlLg' type='email' value={Email} size="md" className='shadow-none' onChange={(e) => setEmail(e.target.value)} />
-              <MDBInput wrapperClass='mb-4' label='비밀번호' id='formControlLg' type='password' value={PW} size="md" className='shadow-none' onChange={(e) => setPW(e.target.value)} />
+              <div className='form-group mb-4'>
+                <label htmlFor='formControlEmail'>이메일</label>
+                <MDBInput id='formControlEmail' type='email' value={Email} size='md' className='shadow-none' onChange={(e) => setEmail(e.target.value)} />
+              </div>
+              <div className='form-group mb-4'>
+                <label htmlFor='formControlPW'>비밀번호</label>
+                <MDBInput id='formControlPW' type='password' value={PW} size='md' className='shadow-none' onChange={(e) => setPW(e.target.value)} />
+              </div>
               <div className='text-center text-md-start mt-4 pt-2'>
                 {ErrorMsg != '' && <p>{ErrorMsg}</p>}
                 <MDBBtn className="mb-0 px-5" size='md' color='dark' noRipple='true' onClick={(e) => signInFunc(e)}>로그인</MDBBtn>

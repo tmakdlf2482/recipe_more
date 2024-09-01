@@ -36,7 +36,9 @@
 ## DB 모델
 1. 레시피 글 모델[/Model/Post.js] : title(글 제목), content(글 내용), postNum(글 고유번호)
 2. 레시피 글 각각에 부여될 번호 모델[/Model/Counter.js] : name(document를 추적하기 위함), postNum(각각의 글에 부여될 숫자)
-3. 사용자 모델[/Model/User.js] : userNum(사용자의 고유번호), displayName(사용자의 이름), email(사용자의 이메일), uid(사용자의 uid)
+3. 댓글 모델[/Model/Comment.js] : comment(댓글 내용)
+<참고> 외래키 관계 : (1)User.js의 _id가 기본키, Comment.js의 author가 외래키 // (2)Post.js의 _id가 기본키, Comment.js의 postId가 외래키
+4. 사용자 모델[/Model/User.js] : userNum(사용자의 고유번호), displayName(사용자의 이름), email(사용자의 이메일), uid(사용자의 uid)
 <참고> 외래키 관계 : User.js의 _id가 기본키, Post.js의 author가 외래키
 
 ## 외부 API

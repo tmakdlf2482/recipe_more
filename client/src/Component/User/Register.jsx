@@ -15,7 +15,7 @@ function Register() {
   const [Email, setEmail] = useState('');
   const [PW, setPW] = useState('');
   const [PWConfirm, setPWConfirm] = useState('');
-  const [Flag, setFlag] = useState(false); // 회원가입 시 시간지연 때문에 회원가입 버튼 여러번 누르는거 방지
+  // const [Flag, setFlag] = useState(false); // 회원가입 시 시간지연 때문에 회원가입 버튼 여러번 누르는거 방지
   const [NameCheck, setNameCheck] = useState(false);
   const [NameInfo, setNameInfo] = useState('');
 
@@ -24,7 +24,7 @@ function Register() {
   const RegisterFunc = async (e) => {
     e.preventDefault();
 
-    setFlag(true); // 회원가입 버튼이 disabled 되어 클릭이 안됨
+    // setFlag(true); // 회원가입 버튼이 disabled 되어 클릭이 안됨
 
     if ( !(Name && Email && PW && PWConfirm) ) {
       return toast('모든 값을 채워주세요. 😓');
@@ -56,7 +56,7 @@ function Register() {
 
     axios.post('/api/user/register', body)
     .then((response) => {
-      setFlag(false);
+      // setFlag(false);
 
       if (response.data.success) {
         // 회원가입 성공시
@@ -125,7 +125,7 @@ function Register() {
                 <MDBInput minLength={6} id='formControlPWConfirm' type='password' value={PWConfirm} size="md" className='shadow-none' onChange={(e) => setPWConfirm(e.target.value)} />
               </div> 
               <div className='text-center text-md-start mt-4 pt-2'>
-                <MDBBtn className="mb-0 px-5" size='md' color='dark' noRipple='true' disabled={Flag} onClick={(e) => RegisterFunc(e)}>회원가입</MDBBtn>
+                <MDBBtn className="mb-0 px-5" size='md' color='dark' noRipple='true' onClick={(e) => RegisterFunc(e)}>회원가입</MDBBtn> {/* 원래 disabled={Flag} 해줬으나 예상치못한 버그로 빼줌 */}
               </div>
             </form>
           </MDBCol>
