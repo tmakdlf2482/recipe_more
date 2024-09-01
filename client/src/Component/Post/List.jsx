@@ -1,25 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import '../../Style/ListCSS.css';
 import ImageSlider, { Slide } from 'react-auto-image-slider';
 import Avatar from 'react-avatar';
+import moment from 'moment';
+import 'moment/locale/ko'; // 한국 지역으로 설정
 
-function List() {
-  const [PostList, setPostList] = useState([]);
-
-  useEffect(() => {
-    axios.post('/api/post/list')
-    .then((response) => {
-      if (response.data.success) {
-        setPostList([...response.data.postList]);
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  }, []);
+function List(props) {
+  const SetTime = (a, b) => { // a는 createdAt, b는 updatedAt
+    if (a !== b) {
+      return moment(b).format('YYYY.M.D. hh:mm') + '(수정됨)';
+    }
+    else {
+      return moment(a).format('YYYY.M.D. hh:mm');
+    }
+  }
 
   return (
     <div className='container'>
@@ -40,7 +36,7 @@ function List() {
       <>
         {
           // PostList에는 {_id: '', title: '', content: '', postNum: 1, __v: 0} 들어가 있음
-          PostList.map((post, idx) => {
+          props.PostList.map((post, idx) => {
             // console.log(post);
             return (
               <div key={idx}>
@@ -59,6 +55,9 @@ function List() {
                       <div style={{ display: 'flex', alignItems: 'center' }}>
                         <Avatar size='40' round={true} src={post.author.photoURL} style={{ border: '1px solid #c6c6c6', marginRight: '10px' }} />
                         <p style={{ color: 'darkgray', margin: '0px' }}>{post.author.displayName}</p>
+                      </div>
+                      <div style={{ color: 'darkgray', marginBottom: '0px', fontSize: '10px' }}>
+                        <p>{SetTime(post.createdAt, post.updatedAt)}</p>
                       </div>
                       <p style={{ margin: '10px 0px' }}>{post.content}</p>
                     </ListGroup.Item>

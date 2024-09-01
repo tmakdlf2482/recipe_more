@@ -34,7 +34,7 @@ function PostArea() {
         Flag ?
         (<>
             <Detail PostInfo={PostInfo} />
-            <CommentArea postId={PostInfo._id} />
+            <CommentArea postId={PostInfo._id} PostInfo={PostInfo} />
           </>)
         :
         (<Spinner animation="border" role="status">

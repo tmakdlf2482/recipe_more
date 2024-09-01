@@ -7,6 +7,8 @@ import toast, { toastConfig } from 'react-simple-toasts';
 import 'react-simple-toasts/dist/theme/dark.css';
 import Avatar from 'react-avatar';
 import axios from 'axios';
+import moment from 'moment';
+import 'moment/locale/ko'; // 한국 지역으로 설정
 
 toastConfig (
   { theme: 'dark' }
@@ -18,7 +20,16 @@ function Detail(props) {
 
   // 현재 어떤 사용자가 접속했는지 추적
   // 만약 현재 접속한 사용자의 uid와 해당 글의 author에 저장된 uid가 같다면 수정, 삭제 기능이 가능
-  const user = useSelector(state => state.user); 
+  const user = useSelector(state => state.user);
+
+  const SetTime = (a, b) => { // a는 createdAt, b는 updatedAt
+    if (a !== b) {
+      return moment(b).format('YYYY.M.D. hh:mm') + '(수정됨)';
+    }
+    else {
+      return moment(a).format('YYYY.M.D. hh:mm');
+    }
+  }
 
   const DeleteHandler = () => {
     // 정말 삭제하시겠습니까? 메시지 창
@@ -48,6 +59,9 @@ function Detail(props) {
           <p style={{ color: 'darkgray' }}>
             <Avatar size='40' round={true} src={props.PostInfo.author.photoURL} style={{ border: '1px solid #c6c6c6', marginRight: '10px' }} />
             {props.PostInfo.author.displayName}
+            <p style={{ fontSize: '10px' }}>
+              {SetTime(props.PostInfo.createdAt, props.PostInfo.updatedAt)}
+            </p>
           </p>
           {/* 사용자가 이미지를 업로드 할수도 있고 안할수도 있으니, 이미지가 있는지 체크 */}
           {
@@ -67,7 +81,7 @@ function Detail(props) {
               </Link>
               <Button variant="danger" size="sm" style={{ marginLeft: '10px' }} onClick={() => {DeleteHandler()}}>삭제</Button>
             </>
-          }                
+          }
         </div>
       </div>
     </div>

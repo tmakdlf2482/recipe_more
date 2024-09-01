@@ -25,7 +25,7 @@ function CommentList(props) {
       {
         CommentList.map((comment, idx) => {
           return (
-            <CommentContent comment={comment} key={idx} />
+            <CommentContent comment={comment} key={idx} PostInfo={props.PostInfo} />
           )
         })
       }

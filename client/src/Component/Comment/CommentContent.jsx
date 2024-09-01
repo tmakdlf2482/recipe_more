@@ -5,6 +5,8 @@ import axios from 'axios';
 import toast, { toastConfig } from 'react-simple-toasts';
 import 'react-simple-toasts/dist/theme/dark.css';
 import Avatar from 'react-avatar';
+import moment from 'moment';
+import 'moment/locale/ko'; // 한국 지역으로 설정
 
 toastConfig (
   { theme: 'dark' }
@@ -19,6 +21,14 @@ function CommentContent(props) {
   useOnClickOutside(ref, () => setModalFlag(false));
 
   const user = useSelector(state => state.user);
+
+  const SetTime = (a, b) => {
+    if (a !== b) {
+      return moment(b).format("YYYY.M.D. hh:mm") + "(수정됨)";
+    } else {
+      return moment(a).format("YYYY.M.D. hh:mm");
+    }
+  };
 
   const SubmitHandler = (e) => {
     e.preventDefault();
@@ -104,6 +114,9 @@ function CommentContent(props) {
               )
             }
           </div>
+          <p style={{ fontSize: '10px', color: 'darkgray' }}>
+            {SetTime(props.PostInfo.createdAt, props.PostInfo.updatedAt)}
+          </p>
           {
             EditFlag ?
             (<>

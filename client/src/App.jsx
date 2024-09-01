@@ -5,7 +5,7 @@ import { loginUser, clearUser } from './Reducer/userSlice.js';
 import firebase from './firebase.js';
 
 import Heading from './Component/Heading.jsx';
-import List from './Component/Post/List.jsx';
+import MainPage from './Component/MainPage.jsx';
 import Upload from './Component/Post/Upload.jsx';
 import PostArea from './Component/Post/PostArea.jsx';
 import Edit from './Component/Post/Edit.jsx';
@@ -43,7 +43,7 @@ function App() {
     <BrowserRouter>
       <Heading />
       <Routes>
-        <Route path='/' element={<List />} />
+        <Route path='/' element={<MainPage />} />
         
         {/* Post, Comment */}
         <Route path='/upload' element={<Upload />} />

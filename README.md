@@ -19,6 +19,7 @@
 16. React 중앙집중식 상태관리 라이브러리 Redux toolkit 설치[클라이언트] : `npm install @reduxjs/toolkit react-redux` <br />
 17. 자동 이미지 슬라이더 라이브러리 설치[클라이언트] : `npm i react-auto-image-slider` <br />
 18. 사용자 프로필 이미지 UI를 위한 라이브러리 설치[클라이언트] : `npm i -S react-avatar` <br />
+19. 시간 정보를 나타내기 위한 라이브러리 설치[클라이언트] : `npm i -S moment` <br />
 
 ## 기능
 1. 로그인
@@ -61,3 +62,4 @@
 11. redux toolkit : `https://ko.redux.js.org/introduction/getting-started/` <br />
 12. useOnClickOutside hook : `https://designcode.io/react-hooks-handbook-useonclickoutside-hook` <br />
 13. react auto image slider : `https://github.com/carsonmj/react-auto-image-slider` <br />
+14. momentjs : `https://momentjs.com/` <br />

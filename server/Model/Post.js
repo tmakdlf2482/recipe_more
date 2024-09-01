@@ -14,7 +14,7 @@ const postSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   }
-}, { collection: 'posts' });
+}, { collection: 'posts', timestamps: true }); // timestamps: true는 mongodb에 createdAt(게시글 생성 시간)과 updatedAt(게시글 수정 시간) 필드가 생김
 
 const Post = mongoose.model('Post', postSchema);
 

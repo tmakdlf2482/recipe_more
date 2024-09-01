@@ -12,7 +12,7 @@ function CommentArea(props) {
       {
         user.accessToken && <CommentUpload postId={props.postId} />
       }
-      <CommentList postId={props.postId} />
+      <CommentList postId={props.postId} PostInfo={props.PostInfo} />
     </div>
   );
 }
