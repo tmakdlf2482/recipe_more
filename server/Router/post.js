@@ -7,6 +7,9 @@ const { Counter } = require('../Model/Counter.js');
 const { User } = require('../Model/User.js');
 
 const setUpload = require('../Util/upload.js');
+const { config } = require('aws-sdk');
+
+const configs = require('../config/key.js');
 
 router.post('/submit', (req, res) => {
   let temp = {
@@ -138,6 +141,52 @@ router.post('/image/upload', setUpload('react-recipe/post'), (req, res, next) =>
   // console.log(res.req);
   // console.log(res.req.file.location);
   res.status(200).json({ success: true, filePath: res.req.file.location }); // 저장한 이미지의 경로를 다시 클라이언트에 전송
+});
+
+// 요약 API
+router.post('/summary', async (req, res) => {
+  // console.log(req.body.content);
+  
+  const docObject = {
+    content: req.body.content,
+  };
+
+  const OptionObject = {
+    language: "ko",
+    model: "general",
+    tone: 2,
+    summaryCount: 4,
+  };
+
+  const apiUrl = `https://naveropenapi.apigw.ntruss.com/text-summary/v1/summarize`;
+
+  // Option과 docObject를 합쳐서 요청으로 보낼 데이터 생성
+  const requestData = {
+    document: docObject,
+    option: OptionObject,
+  };
+
+  // API 호출을 위한 요청 설정
+  const requestOptions = {
+    method: "POST",
+    // mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+      "X-NCP-APIGW-API-KEY-ID": configs.X_NCP_APIGW_API_KEY_ID,
+      "X-NCP-APIGW-API-KEY": configs.X_NCP_APIGW_API_KEY,
+    },
+    body: JSON.stringify(requestData),
+  };
+
+  try {
+    const response = await fetch(apiUrl, requestOptions);
+    const data = await response.json();
+    // console.log(data);
+    res.status(200).json({ summary: data });
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
 });
 
 module.exports = router;

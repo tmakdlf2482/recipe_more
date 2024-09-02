@@ -37,6 +37,10 @@ function Register() {
       return toast('닉네임 중복검사를 진행해주세요. 😓');
     }
 
+    if (PW.length <= 6 && PWConfirm.length <= 6) {
+      return toast('비밀번호는 6자리 이상이여야 합니다. 😓');
+    }
+
     // firebase가 회원가입할때까지 잠시 대기 (async, await)
     let createdUser = await firebase.auth().createUserWithEmailAndPassword(Email, PW); // 이메일, 비밀번호로 회원가입
 

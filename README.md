@@ -36,6 +36,7 @@
 12. 댓글 정렬
 13. 레시피 글 검색 (제목, 내용)
 14. 프로필 사진 변경
+15. 레시피 글 요약
 
 ## DB 모델
 1. 레시피 글 모델[/Model/Post.js] : title(글 제목), content(글 내용), postNum(글 고유번호), image(글의 이미지 경로), author(어떤 사용자가 글을 썻는지), commentNum(댓글 갯수)
@@ -48,6 +49,7 @@
 ## 외부 API
 1. 네이버 클라우드 Object Storage에 사진 업로드 (multer를 이용해 서버에 사진을 계속 저장해두면, 부담이 심해짐) -> Object Storage에 이미지를 업로드하고, Object Storage로부터 URL을 받아서 사용자에게 보여줌
 2. 구글 Firebase Authentication (사용자가 아이디, 비밀번호를 입력할 때 비밀번호를 평문 그대로 몽고db에 저장시키면 안됨, 자동으로 암호화 해줌)
+3. 네이버 클로바 요약 : 사용자들이 올린 레시피들을 요약해줌
 
 ## 프로젝트 하는데 큰 도움받은 공식 문서들
 1. React Router : `https://reactrouter.com/en/main` <br />
@@ -64,3 +66,4 @@
 12. useOnClickOutside hook : `https://designcode.io/react-hooks-handbook-useonclickoutside-hook` <br />
 13. react auto image slider : `https://github.com/carsonmj/react-auto-image-slider` <br />
 14. momentjs : `https://momentjs.com/` <br />
+15. naver clova summary : `https://api.ncloud-docs.com/docs/ai-naver-clovasummary-api` <br />

@@ -97,6 +97,7 @@ function MainPage() {
         </ImageSlider>
       </div>
 
+      {/* 검색, 정렬 UI */}
       <div className='GNBDiv'>
         <div className='search'>
           <InputGroup className="mb-3" style={{ maxWidth: '600px', marginRight: '1rem' }} >
