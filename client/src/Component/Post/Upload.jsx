@@ -67,7 +67,7 @@ function Upload() {
 
         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
           <Form.Label style={{ fontWeight: 'bold' }}>내용</Form.Label>
-          <Form.Control as="textarea" rows={20} style={{ resize: 'none' }} className='shadow-none' value={Content} onChange={(e) => {setContent(e.target.value);}} />
+          <Form.Control as="textarea" placeholder='레시피 글이 너무 짧으면 요약이 되지 않습니다.' rows={20} style={{ resize: 'none' }} className='shadow-none' value={Content} onChange={(e) => {setContent(e.target.value);}} />
         </Form.Group>
         <Button variant="dark" style={{ float: 'right' }} onClick={(e) => {onSubmit(e)}}>등록</Button>
       </Form>
